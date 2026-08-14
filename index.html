@@ -21,94 +21,73 @@
 <main>
 
   <header class="hero">
-    <button class="sigil" id="sigil" aria-label="Cast a hex">
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-        <polygon class="sigil-ring" points="50,4 90,27 90,73 50,96 10,73 10,27"/>
-        <polygon class="sigil-inner" points="50,18 78,34 78,66 50,82 22,66 22,34"/>
-        <text x="50" y="50" class="sigil-text">0x</text>
-      </svg>
-    </button>
-
     <h1><span class="h1-hex">HEX</span><span class="h1-house">HOUSE</span></h1>
 
     <p class="address">
-      <span class="addr-num" data-dec="666" data-hex="0x29A">666</span>
-      <span class="addr-num" data-dec="46th" data-hex="0x2Eth">46th</span>
-      St · Oakland, California
+      666 46th St · Oakland, California
     </p>
 
-    <p class="lede">
-      Four people, one address, and an unreasonable number of hexagons.
-      Nothing is on fire. Everything is fine.
-    </p>
+    <div class="duality">
+      <div class="duality-pane duality-spell">
+        <span class="duality-symbol">&#x2735;</span>
+        <p class="duality-term"><b>hex</b> <i>n.</i></p>
+        <p class="duality-meaning">a spell, a charm</p>
+        <p class="duality-flavor">Placed upon this house by the street numbering committee of Oakland, circa 1915.</p>
+      </div>
+      <div class="duality-divider" aria-hidden="true">
+        <span class="duality-dot"></span>
+      </div>
+      <div class="duality-pane duality-six">
+        <span class="duality-symbol">&#x2B21;</span>
+        <p class="duality-term"><b>hex-</b> <i>pref.</i></p>
+        <p class="duality-meaning">six</p>
+        <p class="duality-flavor">Having six sides or parts, e.g. hexagon. From the Greek <em>hex</em>.</p>
+      </div>
+    </div>
 
-    <p class="hint" id="hint">tap the sigil ·  <span class="hint-alt">hover the honeycomb</span></p>
+    <p class="hint" id="hint">click anywhere to cast</p>
   </header>
 
   <section class="residents" aria-labelledby="residents-h">
     <h2 id="residents-h">The Residents</h2>
 
     <ul class="comb">
-      <li class="cell" style="--c:#F59E0B" data-color="#F59E0B">
-        <div class="hexagon">
-          <span class="glyph">L</span>
-          <span class="name">Lawrence</span>
-          <span class="code">#F59E0B</span>
-        </div>
-      </li>
-      <li class="cell" style="--c:#A855F7" data-color="#A855F7">
-        <div class="hexagon">
-          <span class="glyph">J</span>
-          <span class="name">Jennifer</span>
-          <span class="code">#A855F7</span>
-        </div>
+      <li class="cell" style="--c:#84cc16" data-color="#84cc16">
+        <a class="hexagon" href="https://x.com/dundereloise/status/2065472531545657723" target="_blank" rel="noopener">
+          <span class="glyph">C</span>
+          <span class="name">Crunchie</span>
+        </a>
       </li>
       <li class="cell" style="--c:#22D3EE" data-color="#22D3EE">
-        <div class="hexagon">
+        <a class="hexagon" href="https://eloise-likes-making-things.com/" target="_blank" rel="noopener">
           <span class="glyph">E</span>
           <span class="name">Eloïse</span>
-          <span class="code">#22D3EE</span>
-        </div>
+        </a>
       </li>
       <li class="cell" style="--c:#FB7185" data-color="#FB7185">
-        <div class="hexagon">
+        <a class="hexagon" href="https://deathisbad.substack.com/" target="_blank" rel="noopener">
           <span class="glyph">E</span>
           <span class="name">Eneasz</span>
-          <span class="code">#FB7185</span>
-        </div>
+        </a>
+      </li>
+      <li class="cell" style="--c:#A855F7" data-color="#A855F7">
+        <a class="hexagon" href="https://jkesteloot.com/" target="_blank" rel="noopener">
+          <span class="glyph">J</span>
+          <span class="name">Jennifer</span>
+        </a>
+      </li>
+      <li class="cell" style="--c:#F59E0B" data-color="#F59E0B">
+        <a class="hexagon" href="https://www.teamten.com/lawrence/" target="_blank" rel="noopener">
+          <span class="glyph">L</span>
+          <span class="name">Lawrence</span>
+        </a>
       </li>
     </ul>
-
-    <p class="comb-note">Listed in no particular order, which is itself a kind of order.</p>
-  </section>
-
-  <section class="etymology" aria-labelledby="etym-h">
-    <h2 id="etym-h">Notes on the Name</h2>
-
-    <div class="cards">
-      <article class="card">
-        <p class="pos"><b>hex</b> <i>abbr.</i> — base sixteen</p>
-        <p>Where <code>666</code> is merely <code>0x29A</code>, and the truly ominous number is
-        <code>0x666</code>, or 1638, which has never frightened anyone.</p>
-      </article>
-
-      <article class="card">
-        <p class="pos"><b>hex</b> <i>n.</i> — a spell, a charm</p>
-        <p>Placed on a person or a house. This one seems to have been placed on the house by the
-        street numbering committee of Oakland, circa 1900.</p>
-      </article>
-
-      <article class="card">
-        <p class="pos"><b>hex-</b> <i>pref.</i> — six</p>
-        <p>Six sides. Tiles the plane with no gaps and the least perimeter per unit area. The bees
-        worked this out first and we have never once beaten them to anything.</p>
-      </article>
-    </div>
   </section>
 
   <footer>
     <p class="soon">More will go here eventually. For now, please enjoy the hexagons.</p>
-    <p class="coords"><span>0x29A</span> <span>0x2E</span> <span>OAK</span> <span>CA</span></p>
+    <p class="coords"><span>666</span> <span>46th</span> <span>OAK</span> <span>CA</span></p>
   </footer>
 
 </main>

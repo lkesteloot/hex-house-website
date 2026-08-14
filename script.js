@@ -1,6 +1,6 @@
 /* ==========================================================================
    Hex House — the living honeycomb behind everything.
-   A grid of hexagons that twinkles, follows the cursor, and ripples when hexed.
+   A grid of hexagons that twinkles, follows the cursor, and ripples on click.
    ========================================================================== */
 
 (function () {
@@ -10,12 +10,12 @@
   var ctx = canvas.getContext("2d");
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var R = 30;                 // hexagon radius (flat-top)
+  var R = 30;
   var cells = [];
   var W = 0, H = 0;
 
   var pointer = { x: -9999, y: -9999, on: false };
-  var ripples = [];           // { x, y, t0, hue }
+  var ripples = [];
 
   var DEFAULT_TINT = [168, 85, 247];
   var tint = DEFAULT_TINT.slice();
@@ -42,7 +42,6 @@
         cells.push({
           x: c * dx,
           y: r * dy + (c & 1 ? dy / 2 : 0),
-          // deterministic per-cell phase, so the twinkle never repeats visibly
           seed: fract(Math.sin(c * 12.9898 + r * 78.233) * 43758.5453)
         });
       }
@@ -69,7 +68,6 @@
     ctx.clearRect(0, 0, W, H);
     ctx.lineWidth = 1;
 
-    // ease the tint toward whatever the page is currently emphasizing
     for (var k = 0; k < 3; k++) tint[k] += (target[k] - tint[k]) * 0.06;
     var rgb = Math.round(tint[0]) + "," + Math.round(tint[1]) + "," + Math.round(tint[2]);
 
@@ -79,7 +77,6 @@
       var cell = cells[i];
       var b = 0;
 
-      // slow, sparse twinkle
       if (!reduced) {
         var s = Math.sin(t * 0.45 + cell.seed * Math.PI * 2);
         b += Math.pow(Math.max(0, s), 22) * 0.85;
@@ -87,14 +84,12 @@
         b += cell.seed * 0.12;
       }
 
-      // cursor glow
       if (pointer.on) {
         var ddx = cell.x - pointer.x, ddy = cell.y - pointer.y;
         var d = Math.sqrt(ddx * ddx + ddy * ddy);
         if (d < reach) b += Math.pow(1 - d / reach, 2) * 0.9;
       }
 
-      // expanding rings from every hex cast
       for (var j = 0; j < ripples.length; j++) {
         var rp = ripples[j];
         var age = t - rp.t0;
@@ -121,7 +116,6 @@
       ctx.stroke();
     }
 
-    // retire finished ripples
     for (var m = ripples.length - 1; m >= 0; m--) {
       if (t - ripples[m].t0 > 2.6) ripples.splice(m, 1);
     }
@@ -153,22 +147,12 @@
 
   window.addEventListener("pointerleave", function () { pointer.on = false; });
 
-  window.addEventListener("pointerdown", function (e) { cast(e.clientX, e.clientY); });
-
-  // the sigil: a deliberate hex, cast from the center of the mark
-  var sigil = document.getElementById("sigil");
-  var hint = document.getElementById("hint");
-  var spins = 0;
-
-  sigil.addEventListener("click", function () {
-    var box = sigil.getBoundingClientRect();
-    cast(box.left + box.width / 2, box.top + box.height / 2);
-    spins += 60;
-    sigil.style.transform = "rotate(" + spins + "deg)";
+  window.addEventListener("pointerdown", function (e) {
+    cast(e.clientX, e.clientY);
+    var hint = document.getElementById("hint");
     if (hint) hint.style.opacity = "0";
   });
 
-  // residents tint the whole grid while you consider them
   Array.prototype.forEach.call(document.querySelectorAll(".cell"), function (cell) {
     var rgb = hexToRgb(cell.dataset.color);
     cell.addEventListener("pointerenter", function () { target = rgb; });
@@ -179,28 +163,6 @@
     var n = parseInt(h.slice(1), 16);
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
   }
-
-  /* --- the address, in two bases ------------------------------------------ */
-
-  var nums = document.querySelectorAll(".addr-num");
-
-  function flip(on) {
-    Array.prototype.forEach.call(nums, function (el) {
-      el.textContent = on ? el.dataset.hex : el.dataset.dec;
-      el.classList.toggle("flip", on);
-    });
-  }
-
-  Array.prototype.forEach.call(nums, function (el) {
-    el.addEventListener("pointerenter", function () { flip(true); });
-    el.addEventListener("pointerleave", function () { flip(false); });
-  });
-
-  // show the trick once, unprompted, then put it back
-  setTimeout(function () {
-    flip(true);
-    setTimeout(function () { flip(false); }, 2200);
-  }, 2600);
 
   /* --- easter egg: type 666 ----------------------------------------------- */
 

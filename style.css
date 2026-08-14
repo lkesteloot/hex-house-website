@@ -1,6 +1,6 @@
 /* ==========================================================================
    Hex House — 666 46th St, Oakland
-   Base sixteen, six sides, one mild curse.
+   A spell, a shape, a home.
    ========================================================================== */
 
 :root {
@@ -86,56 +86,9 @@ h2::after {
   background: linear-gradient(var(--rule), transparent);
 }
 
-code {
-  font-family: var(--mono);
-  font-size: 0.88em;
-  color: var(--amber);
-  background: rgba(245, 158, 11, 0.09);
-  padding: 0.1em 0.36em;
-  border-radius: 3px;
-  white-space: nowrap;
-}
-
 /* --- hero ----------------------------------------------------------------- */
 
 .hero { text-align: center; }
-
-.sigil {
-  display: block;
-  width: 92px;
-  height: 92px;
-  margin: 0 auto 2rem;
-  padding: 0;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  color: var(--accent);
-  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4), color 0.4s;
-  animation: breathe 6s ease-in-out infinite;
-}
-
-.sigil:hover, .sigil:focus-visible { color: var(--amber); }
-.sigil:focus-visible { outline: 1px dashed var(--rule); outline-offset: 8px; }
-.sigil:active { transform: scale(0.94); }
-.sigil.cast { transform: rotate(60deg); }
-
-@keyframes breathe {
-  0%, 100% { filter: drop-shadow(0 0 6px currentColor); }
-  50%      { filter: drop-shadow(0 0 20px currentColor); }
-}
-
-.sigil svg { width: 100%; height: 100%; overflow: visible; }
-.sigil-ring   { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.55; }
-.sigil-inner  { fill: rgba(168, 85, 247, 0.07); stroke: currentColor; stroke-width: 2.5; }
-.sigil-text {
-  fill: currentColor;
-  font-family: var(--mono);
-  font-size: 26px;
-  font-weight: 600;
-  text-anchor: middle;
-  dominant-baseline: central;
-  letter-spacing: 1px;
-}
 
 h1 {
   margin: 0;
@@ -168,22 +121,143 @@ h1 {
   margin: 2rem 0 0;
 }
 
-.addr-num {
-  color: var(--paper);
-  text-transform: none;  /* keeps the "0x" prefix lowercase when flipped */
-  cursor: default;
-  border-bottom: 1px dotted var(--rule);
-  transition: color 0.25s;
+/* --- duality -------------------------------------------------------------- */
+
+.duality {
+  margin: 3.5rem auto 0;
+  max-width: 44rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: 0;
 }
 
-.addr-num.flip { color: var(--amber); }
+.duality-pane {
+  padding: 2rem 2.2rem;
+  text-align: center;
+  position: relative;
+}
 
-.lede {
-  max-width: 30rem;
-  margin: 2.6rem auto 0;
-  font-size: 1.12rem;
-  color: rgba(222, 217, 236, 0.82);
-  text-wrap: balance;
+.duality-symbol {
+  display: block;
+  font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 1.2rem;
+  opacity: 0.5;
+  transition: opacity 0.4s, transform 0.5s, text-shadow 0.4s;
+  text-shadow: 0 0 0 transparent;
+}
+
+.duality-spell .duality-symbol { color: var(--amber); }
+.duality-six .duality-symbol {
+  color: var(--amber);
+  font-size: 3rem;
+  -webkit-text-stroke: 1.5px var(--amber);
+}
+
+.duality-pane:hover .duality-symbol {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.duality-spell:hover .duality-symbol {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+.duality-six:hover .duality-symbol {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+.duality-term {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.duality-term b {
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.duality-term i {
+  font-style: italic;
+}
+
+.duality-meaning {
+  margin: 0.6rem 0 0;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--paper);
+  line-height: 1.3;
+}
+
+.duality-flavor {
+  margin: 1rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(222, 217, 236, 0.5);
+  max-width: 18rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.duality-divider {
+  width: 1px;
+  align-self: stretch;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--rule) 20%,
+    var(--accent) 50%,
+    var(--rule) 80%,
+    transparent
+  );
+  position: relative;
+  margin: 1rem 0;
+}
+
+.duality-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+@media (max-width: 600px) {
+  .duality {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .duality-pane { padding: 1.8rem 1.2rem; }
+
+  .duality-divider {
+    width: 60%;
+    height: 1px;
+    margin: 0 auto;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--rule) 20%,
+      var(--accent) 50%,
+      var(--rule) 80%,
+      transparent
+    );
+  }
+
+  .duality-dot {
+    top: 50%;
+    left: 50%;
+  }
 }
 
 .hint {
@@ -195,12 +269,10 @@ h1 {
   color: rgba(139, 132, 163, 0.55);
 }
 
-@media (max-width: 520px) { .hint-alt { display: none; } }
-
 /* --- residents ------------------------------------------------------------ */
 
 .comb {
-  --hw: 190px;
+  --hw: 170px;
   --hh: calc(var(--hw) * 0.866);
   list-style: none;
   margin: 0;
@@ -214,14 +286,14 @@ h1 {
   width: var(--hw);
   height: var(--hh);
   flex: 0 0 auto;
-  margin-right: calc(var(--hw) * -0.2);
+  margin-right: calc(var(--hw) * -0.18);
   transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
 }
 
 .cell:last-child { margin-right: 0; }
 .cell:nth-child(even) { transform: translateY(calc(var(--hh) * 0.53)); }
-.cell:hover { transform: translateY(-6px) scale(1.05); z-index: 2; }
-.cell:nth-child(even):hover { transform: translateY(calc(var(--hh) * 0.53 - 6px)) scale(1.05); }
+.cell:hover { transform: translateY(-6px) scale(1.08); z-index: 2; }
+.cell:nth-child(even):hover { transform: translateY(calc(var(--hh) * 0.53 - 6px)) scale(1.08); }
 
 .hexagon {
   position: absolute;
@@ -231,6 +303,7 @@ h1 {
   display: grid;
   place-content: center;
   text-align: center;
+  text-decoration: none;
   transition: background 0.3s, filter 0.35s;
   filter: drop-shadow(0 0 0 transparent);
 }
@@ -242,105 +315,86 @@ h1 {
   clip-path: var(--hex-clip);
   background:
     radial-gradient(ellipse at 50% 130%, color-mix(in srgb, var(--c) 22%, transparent), transparent 65%),
+    radial-gradient(ellipse at 50% -20%, color-mix(in srgb, var(--c) 8%, transparent), transparent 50%),
     var(--ink-2);
+}
+
+.hexagon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: var(--hex-clip);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--c) 12%, transparent) 0%,
+    transparent 40%,
+    transparent 60%,
+    color-mix(in srgb, var(--c) 6%, transparent) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
 }
 
 .cell:hover .hexagon {
   background: var(--c);
-  filter: drop-shadow(0 0 26px color-mix(in srgb, var(--c) 60%, transparent));
+  filter: drop-shadow(0 0 30px color-mix(in srgb, var(--c) 65%, transparent));
 }
 
-.hexagon > * { position: relative; }
+.cell:hover .hexagon::after { opacity: 1; }
+
+.hexagon > * { position: relative; z-index: 1; }
 
 .glyph {
   font-family: var(--mono);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 300;
   line-height: 1;
   color: var(--c);
-  opacity: 0.28;
-  transition: opacity 0.3s;
+  opacity: 0.22;
+  transition: opacity 0.3s, transform 0.4s, text-shadow 0.4s;
+  text-shadow: 0 0 0 transparent;
 }
 
-.cell:hover .glyph { opacity: 0.6; }
+.cell:hover .glyph {
+  opacity: 0.7;
+  transform: scale(1.1);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--c) 50%, transparent);
+}
 
 .name {
   font-family: var(--serif);
-  font-size: 1.18rem;
+  font-size: 1.08rem;
   letter-spacing: 0.02em;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   color: var(--paper);
+  transition: text-shadow 0.4s;
 }
 
-.code {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
-  margin-top: 0.45rem;
-  color: var(--muted);
-  transition: color 0.3s;
+.cell:hover .name {
+  text-shadow: 0 0 8px color-mix(in srgb, var(--c) 40%, transparent);
 }
 
-.cell:hover .code { color: var(--c); }
-
-.comb-note {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.95rem;
-  font-style: italic;
-  margin: 3rem 0 0;
+@media (max-width: 900px) {
+  .comb { --hw: 150px; }
 }
 
 @media (max-width: 760px) {
   .comb {
-    --hw: min(42vw, 190px);
+    --hw: min(38vw, 160px);
     flex-wrap: wrap;
     gap: 0.6rem 0;
     padding-bottom: 0;
-    /* two per row: each pair spans 2w minus the overlap, so a third can't fit */
-    max-width: calc(var(--hw) * 1.87);
+    max-width: calc(var(--hw) * 2.7);
     margin: 0 auto;
   }
   .cell { margin-right: calc(var(--hw) * -0.14); }
   .cell:nth-child(even) { margin-right: 0; }
   .cell:nth-child(even),
   .cell:nth-child(even):hover { transform: none; }
-  .cell:hover, .cell:nth-child(even):hover { transform: scale(1.05); }
+  .cell:hover, .cell:nth-child(even):hover { transform: scale(1.08); }
   .name { font-size: 1rem; }
-  .glyph { font-size: 2rem; }
+  .glyph { font-size: 1.8rem; }
 }
-
-/* --- etymology cards ------------------------------------------------------ */
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-}
-
-.card {
-  background: rgba(18, 16, 29, 0.72);
-  padding: 2rem 1.7rem;
-  transition: background 0.35s;
-}
-
-.card:hover { background: rgba(168, 85, 247, 0.07); }
-
-.card p { margin: 0; }
-.card p + p { margin-top: 0.9rem; color: rgba(222, 217, 236, 0.78); font-size: 0.98rem; }
-
-.pos {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.pos b { color: var(--paper); font-weight: 600; }
-.pos i { font-style: italic; }
 
 /* --- footer --------------------------------------------------------------- */
 
