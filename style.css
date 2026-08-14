@@ -1,0 +1,376 @@
+/* ==========================================================================
+   Hex House — 666 46th St, Oakland
+   Base sixteen, six sides, one mild curse.
+   ========================================================================== */
+
+:root {
+  --ink:        #0b0a12;
+  --ink-2:      #12101d;
+  --paper:      #ded9ec;
+  --muted:      #8b84a3;
+  --accent:     #a855f7;
+  --amber:      #f59e0b;
+  --rule:       rgba(168, 85, 247, 0.22);
+
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+
+  --hex-clip: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- background layers ---------------------------------------------------- */
+
+#grid {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  display: block;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 65% at 50% 0%, rgba(168, 85, 247, 0.13), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(11, 10, 18, 0.9), transparent 60%),
+    radial-gradient(ellipse 120% 90% at 50% 45%, transparent 30%, rgba(11, 10, 18, 0.82) 100%);
+}
+
+/* --- shell ---------------------------------------------------------------- */
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(3rem, 9vw, 7rem) 1.5rem 4rem;
+}
+
+section { margin-top: clamp(5rem, 12vw, 9rem); }
+
+h2 {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin: 0 0 3rem;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 2.2rem;
+  margin: 1.1rem auto 0;
+  background: linear-gradient(var(--rule), transparent);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--amber);
+  background: rgba(245, 158, 11, 0.09);
+  padding: 0.1em 0.36em;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* --- hero ----------------------------------------------------------------- */
+
+.hero { text-align: center; }
+
+.sigil {
+  display: block;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 2rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--accent);
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4), color 0.4s;
+  animation: breathe 6s ease-in-out infinite;
+}
+
+.sigil:hover, .sigil:focus-visible { color: var(--amber); }
+.sigil:focus-visible { outline: 1px dashed var(--rule); outline-offset: 8px; }
+.sigil:active { transform: scale(0.94); }
+.sigil.cast { transform: rotate(60deg); }
+
+@keyframes breathe {
+  0%, 100% { filter: drop-shadow(0 0 6px currentColor); }
+  50%      { filter: drop-shadow(0 0 20px currentColor); }
+}
+
+.sigil svg { width: 100%; height: 100%; overflow: visible; }
+.sigil-ring   { fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.55; }
+.sigil-inner  { fill: rgba(168, 85, 247, 0.07); stroke: currentColor; stroke-width: 2.5; }
+.sigil-text {
+  fill: currentColor;
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: central;
+  letter-spacing: 1px;
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 12vw, 6.2rem);
+  line-height: 0.98;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0 0 40px rgba(168, 85, 247, 0.35);
+}
+
+.h1-hex   { color: var(--paper); }
+.h1-house {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(222, 217, 236, 0.55);
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;
+}
+
+.address {
+  font-family: var(--mono);
+  font-size: clamp(0.72rem, 2.4vw, 0.85rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2rem 0 0;
+}
+
+.addr-num {
+  color: var(--paper);
+  text-transform: none;  /* keeps the "0x" prefix lowercase when flipped */
+  cursor: default;
+  border-bottom: 1px dotted var(--rule);
+  transition: color 0.25s;
+}
+
+.addr-num.flip { color: var(--amber); }
+
+.lede {
+  max-width: 30rem;
+  margin: 2.6rem auto 0;
+  font-size: 1.12rem;
+  color: rgba(222, 217, 236, 0.82);
+  text-wrap: balance;
+}
+
+.hint {
+  margin: 3.5rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(139, 132, 163, 0.55);
+}
+
+@media (max-width: 520px) { .hint-alt { display: none; } }
+
+/* --- residents ------------------------------------------------------------ */
+
+.comb {
+  --hw: 190px;
+  --hh: calc(var(--hw) * 0.866);
+  list-style: none;
+  margin: 0;
+  padding: 0 0 calc(var(--hh) * 0.55);
+  display: flex;
+  justify-content: center;
+}
+
+.cell {
+  position: relative;
+  width: var(--hw);
+  height: var(--hh);
+  flex: 0 0 auto;
+  margin-right: calc(var(--hw) * -0.2);
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.cell:last-child { margin-right: 0; }
+.cell:nth-child(even) { transform: translateY(calc(var(--hh) * 0.53)); }
+.cell:hover { transform: translateY(-6px) scale(1.05); z-index: 2; }
+.cell:nth-child(even):hover { transform: translateY(calc(var(--hh) * 0.53 - 6px)) scale(1.05); }
+
+.hexagon {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--hex-clip);
+  background: color-mix(in srgb, var(--c) 55%, transparent);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  transition: background 0.3s, filter 0.35s;
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+.hexagon::before {
+  content: "";
+  position: absolute;
+  inset: 1.5px;
+  clip-path: var(--hex-clip);
+  background:
+    radial-gradient(ellipse at 50% 130%, color-mix(in srgb, var(--c) 22%, transparent), transparent 65%),
+    var(--ink-2);
+}
+
+.cell:hover .hexagon {
+  background: var(--c);
+  filter: drop-shadow(0 0 26px color-mix(in srgb, var(--c) 60%, transparent));
+}
+
+.hexagon > * { position: relative; }
+
+.glyph {
+  font-family: var(--mono);
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--c);
+  opacity: 0.28;
+  transition: opacity 0.3s;
+}
+
+.cell:hover .glyph { opacity: 0.6; }
+
+.name {
+  font-family: var(--serif);
+  font-size: 1.18rem;
+  letter-spacing: 0.02em;
+  margin-top: 0.5rem;
+  color: var(--paper);
+}
+
+.code {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+.cell:hover .code { color: var(--c); }
+
+.comb-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-style: italic;
+  margin: 3rem 0 0;
+}
+
+@media (max-width: 760px) {
+  .comb {
+    --hw: min(42vw, 190px);
+    flex-wrap: wrap;
+    gap: 0.6rem 0;
+    padding-bottom: 0;
+    /* two per row: each pair spans 2w minus the overlap, so a third can't fit */
+    max-width: calc(var(--hw) * 1.87);
+    margin: 0 auto;
+  }
+  .cell { margin-right: calc(var(--hw) * -0.14); }
+  .cell:nth-child(even) { margin-right: 0; }
+  .cell:nth-child(even),
+  .cell:nth-child(even):hover { transform: none; }
+  .cell:hover, .cell:nth-child(even):hover { transform: scale(1.05); }
+  .name { font-size: 1rem; }
+  .glyph { font-size: 2rem; }
+}
+
+/* --- etymology cards ------------------------------------------------------ */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.card {
+  background: rgba(18, 16, 29, 0.72);
+  padding: 2rem 1.7rem;
+  transition: background 0.35s;
+}
+
+.card:hover { background: rgba(168, 85, 247, 0.07); }
+
+.card p { margin: 0; }
+.card p + p { margin-top: 0.9rem; color: rgba(222, 217, 236, 0.78); font-size: 0.98rem; }
+
+.pos {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pos b { color: var(--paper); font-weight: 600; }
+.pos i { font-style: italic; }
+
+/* --- footer --------------------------------------------------------------- */
+
+footer {
+  margin-top: clamp(5rem, 12vw, 9rem);
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+}
+
+.soon { margin: 0; color: rgba(222, 217, 236, 0.7); font-style: italic; }
+
+.coords {
+  margin: 1.6rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.34em;
+  color: rgba(139, 132, 163, 0.5);
+  display: flex;
+  gap: 1.4rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --- motion preferences --------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
